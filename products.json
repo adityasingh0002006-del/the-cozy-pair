@@ -168,5 +168,30 @@
       "hamper bouqet.jpeg"
     ],
     "description": "Handmade crochet hamper bouquet with elegant floral styling."
+  },
+  {
+    "id": 15,
+    "slug": "evileye-keychain",
+    "name": "Evil Eye Keychain",
+    "category": "Keychains",
+    "price": "₹190",
+    "image": "evileye keychain.jpeg",
+    "images": [
+      "evileye keychain.jpeg",
+      "evileye keychain2.jpeg"
+    ],
+    "description": "Handmade crochet evil eye keychain crafted as a stylish accessory and thoughtful gift."
+  },
+  {
+    "id": 16,
+    "slug": "waist-band",
+    "name": "Waist Band",
+    "category": "Accessories",
+    "price": "₹300",
+    "image": "waist band.jpeg",
+    "images": [
+      "waist band.jpeg"
+    ],
+    "description": "Handmade crochet waist band designed to add a unique handcrafted touch to any outfit."
   }
 ]

@@ -17,6 +17,7 @@ CATEGORY_ORDER = [
     "Scarves",
     "Bouquets",
     "Keychains",
+    "Accessories",
 ]
 
 
