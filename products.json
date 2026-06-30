@@ -1,0 +1,172 @@
+[
+  {
+    "id": 1,
+    "slug": "bow-clip",
+    "name": "Bow Clip",
+    "category": "Hair Accessories",
+    "price": "₹120",
+    "image": "bow clip.jpeg",
+    "images": [
+      "bow clip.jpeg"
+    ],
+    "description": "A soft handmade crochet bow clip made for everyday styling, gifting, and gentle hair hold."
+  },
+  {
+    "id": 2,
+    "slug": "tulip-clutcher",
+    "name": "Tulip Clutcher",
+    "category": "Clutchers",
+    "price": "₹110",
+    "image": "tulip clutcher.jpeg",
+    "images": [
+      "tulip clutcher.jpeg",
+      "tulip clutcher2.jpeg"
+    ],
+    "description": "A charming tulip crochet clutcher with a handmade floral finish and a cozy pastel look."
+  },
+  {
+    "id": 3,
+    "slug": "blue-clutcher",
+    "name": "Blue Clutcher",
+    "category": "Clutchers",
+    "price": "₹59",
+    "image": "blue clutcher.jpeg",
+    "images": [
+      "blue clutcher.jpeg"
+    ],
+    "description": "A lightweight crochet clutcher in a calm blue shade, perfect for simple everyday outfits."
+  },
+  {
+    "id": 4,
+    "slug": "yellow-clutcher",
+    "name": "Yellow Clutcher",
+    "category": "Clutchers",
+    "price": "₹59",
+    "image": "yellow clutcher.jpeg",
+    "images": [
+      "yellow clutcher.jpeg"
+    ],
+    "description": "A cheerful yellow handmade clutcher that adds a warm crochet accent to your look."
+  },
+  {
+    "id": 5,
+    "slug": "pink-clutcher",
+    "name": "Pink Clutcher",
+    "category": "Clutchers",
+    "price": "₹59",
+    "image": "pink clutcher.jpeg",
+    "images": [
+      "pink clutcher.jpeg"
+    ],
+    "description": "A sweet pink crochet clutcher with a soft handmade texture and easy everyday charm."
+  },
+  {
+    "id": 6,
+    "slug": "red-clutcher",
+    "name": "Red Clutcher",
+    "category": "Clutchers",
+    "price": "₹59",
+    "image": "red clutcher.jpeg",
+    "images": [
+      "red clutcher.jpeg"
+    ],
+    "description": "A bold red crochet clutcher for days when your hairstyle needs a bright handmade detail."
+  },
+  {
+    "id": 7,
+    "slug": "hairband",
+    "name": "Hairband",
+    "category": "Hair Accessories",
+    "price": "₹59",
+    "image": "hairband.jpeg",
+    "images": [
+      "hairband.jpeg"
+    ],
+    "description": "A comfortable handmade crochet hairband designed for soft styling and all-day wear."
+  },
+  {
+    "id": 8,
+    "slug": "sunflower-keychain",
+    "name": "Sunflower Keychain",
+    "category": "Keychains",
+    "price": "₹200",
+    "image": "sunflower keychain .jpeg",
+    "images": [
+      "sunflower keychain .jpeg"
+    ],
+    "description": "Handmade crochet sunflower keychain crafted with soft yarn and bright floral detailing."
+  },
+  {
+    "id": 9,
+    "slug": "maroon-scarf",
+    "name": "Maroon Scarf",
+    "category": "Scarves",
+    "price": "₹599",
+    "image": "maroon scarf.jpeg",
+    "images": [
+      "maroon scarf.jpeg"
+    ],
+    "description": "Warm handmade crochet maroon scarf designed for cozy everyday wear."
+  },
+  {
+    "id": 10,
+    "slug": "rose-gajra",
+    "name": "Rose Gajra",
+    "category": "Hair Accessories",
+    "price": "₹250",
+    "image": "rose gajra .jpeg",
+    "images": [
+      "rose gajra .jpeg",
+      "rose gajra2.jpeg"
+    ],
+    "description": "Elegant handmade crochet rose gajra with multiple product photos."
+  },
+  {
+    "id": 11,
+    "slug": "small-bouquet",
+    "name": "Small Bouquet",
+    "category": "Bouquets",
+    "price": "₹250",
+    "image": "small bouquet.jpeg",
+    "images": [
+      "small bouquet.jpeg"
+    ],
+    "description": "A compact handmade crochet bouquet perfect for gifting."
+  },
+  {
+    "id": 12,
+    "slug": "floral-scarf",
+    "name": "Floral Scarf",
+    "category": "Scarves",
+    "price": "₹999",
+    "image": "floral scarf.jpeg",
+    "images": [
+      "floral scarf.jpeg"
+    ],
+    "description": "Premium handmade crochet floral scarf with detailed craftsmanship."
+  },
+  {
+    "id": 13,
+    "slug": "rose-bouquet",
+    "name": "Rose Bouquet",
+    "category": "Bouquets",
+    "price": "₹250",
+    "image": "rose bouquet.jpeg",
+    "images": [
+      "rose bouquet.jpeg"
+    ],
+    "description": "Handmade crochet rose bouquet ideal for special occasions and gifts."
+  },
+  {
+    "id": 14,
+    "slug": "hamper-bouquet",
+    "name": "Hamper Bouquet",
+    "category": "Bouquets",
+    "price": "₹259",
+    "image": "hamper bouqet.jpeg",
+    "images": [
+      "hamper bouqet.jpeg"
+    ],
+    "description": "Handmade crochet hamper bouquet with elegant floral styling."
+  }
+]

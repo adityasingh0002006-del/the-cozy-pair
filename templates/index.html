@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cozy Pair | Handmade Crochet Creations</title>
+    <meta name="description" content="The Cozy Pair creates handmade crochet clutchers, hairbands, and bow clips with a soft pastel aesthetic.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="loader" aria-hidden="true">
+        <div class="loader-thread"></div>
+    </div>
+
+    <header class="site-header">
+        <nav class="navbar" aria-label="Primary navigation">
+            <a class="brand" href="#home" aria-label="The Cozy Pair home">
+                <img class="brand-logo" src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="The Cozy Pair logo">
+                <span class="brand-name">The Cozy Pair</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="home">
+        <section class="hero section-pad">
+            <div class="hero-copy reveal">
+                <p class="eyebrow">Made slowly, styled softly</p>
+                <h1>Handmade Crochet Creations</h1>
+                <p class="hero-text">Pastel crochet accessories crafted for cozy everyday looks, thoughtful gifting, and tiny outfit details that feel personal.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="https://instagram.com/the.cozy.pair" target="_blank" rel="noopener">Instagram</a>
+                    <a class="btn btn-secondary" href="#products">Scroll to Products</a>
+                </div>
+            </div>
+            <div class="hero-panel reveal" aria-label="The Cozy Pair crochet aesthetic">
+                <div class="hero-logo-wrap">
+                    <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="The Cozy Pair logo">
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="section-pad products-section">
+            <div class="section-heading reveal">
+                <div>
+                    <p class="eyebrow">Shop by mood</p>
+                    <h2>Cozy Crochet Picks</h2>
+                </div>
+            </div>
+
+            <div class="category-filters reveal" aria-label="Product categories">
+                <button class="filter-btn active" type="button" data-filter="All">All</button>
+                {% for category in categories %}
+                <button class="filter-btn" type="button" data-filter="{{ category }}">{{ category }}</button>
+                {% endfor %}
+            </div>
+
+            <div class="product-grid">
+                {% for product in products %}
+                <article class="product-card reveal" data-category="{{ product.category }}">
+                    <a class="product-image" href="{{ url_for('product_details', slug=product.slug) }}" aria-label="View {{ product.name }}">
+                        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}" loading="lazy">
+                    </a>
+                    <div class="product-info">
+                        <p class="product-category">{{ product.category }}</p>
+                        <h3>{{ product.name }}</h3>
+                        <p class="price">{{ product.price }}</p>
+                        <div class="card-actions">
+                            <a class="btn btn-small btn-secondary" href="{{ url_for('product_details', slug=product.slug) }}">View Details</a>
+                            <a class="btn btn-small btn-primary" href="https://instagram.com/the.cozy.pair" target="_blank" rel="noopener">Order on Instagram</a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="reviews" class="section-pad reviews-section">
+            <div class="section-heading reveal">
+                <div>
+                    <p class="eyebrow">Customer love</p>
+                    <h2>Happy Cozy Notes</h2>
+                </div>
+            </div>
+            <div class="review-grid">
+                <article class="review-card reveal">
+                    <div class="stars" aria-label="5 star rating">&starf;&starf;&starf;&starf;&starf;</div>
+                    <p>"The clutcher is so cute and neatly made. It looks even prettier in person."</p>
+                    <h3>Ananya</h3>
+                </article>
+                <article class="review-card reveal">
+                    <div class="stars" aria-label="5 star rating">&starf;&starf;&starf;&starf;&starf;</div>
+                    <p>"Loved the pastel colors and packaging. Perfect for gifting."</p>
+                    <h3>Megha</h3>
+                </article>
+                <article class="review-card reveal">
+                    <div class="stars" aria-label="5 star rating">&starf;&starf;&starf;&starf;&starf;</div>
+                    <p>"The bow clip feels handmade in the best way. Soft, pretty, and comfortable."</p>
+                    <h3>Riya</h3>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="section-pad contact-section">
+            <div class="contact-inner reveal">
+                <p class="eyebrow">Orders and delivery</p>
+                <h2>Let's Make Your Cozy Pair</h2>
+                <div class="contact-list" aria-label="Ordering information">
+                    <p>Delivery Available</p>
+                    <p>Orders accepted only through Instagram</p>
+                    <p>No COD Available</p>
+                </div>
+                <div class="contact-actions">
+                    <a class="btn btn-primary" href="https://instagram.com/the.cozy.pair" target="_blank" rel="noopener">Order on Instagram</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand-block">
+                <img class="footer-logo" src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="The Cozy Pair logo">
+                <p class="footer-brand">The Cozy Pair</p>
+                <a href="https://instagram.com/the.cozy.pair" target="_blank" rel="noopener">@the.cozy.pair</a>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Categories</h3>
+                {% for category in categories %}
+                <a href="#products" data-footer-filter="{{ category }}">{{ category }}</a>
+                {% endfor %}
+            </div>
+            <div class="footer-column">
+                <h3>Ordering</h3>
+                <p>Delivery Available</p>
+                <p>No COD</p>
+            </div>
+        </div>
+        <p class="footer-copy">&copy; 2026 The Cozy Pair. All rights reserved.</p>
+    </footer>
+
+    <button class="back-to-top" type="button" aria-label="Back to top">&uarr;</button>
+
+    <script>
+        const navToggle = document.querySelector(".nav-toggle");
+        const navLinks = document.querySelector(".nav-links");
+        navToggle.addEventListener("click", () => {
+            const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+            navToggle.setAttribute("aria-expanded", String(!isOpen));
+            navLinks.classList.toggle("open");
+        });
+
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navToggle.setAttribute("aria-expanded", "false");
+                navLinks.classList.remove("open");
+            });
+        });
+
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const productCards = document.querySelectorAll(".product-card");
+        filterButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                filterButtons.forEach((item) => item.classList.remove("active"));
+                button.classList.add("active");
+                const filter = button.dataset.filter;
+                productCards.forEach((card) => {
+                    const shouldShow = filter === "All" || card.dataset.category === filter;
+                    if (shouldShow) {
+                        card.hidden = false;
+                        requestAnimationFrame(() => card.classList.remove("is-filtered-out"));
+                    } else {
+                        card.classList.add("is-filtered-out");
+                        setTimeout(() => {
+                            if (card.classList.contains("is-filtered-out")) {
+                                card.hidden = true;
+                            }
+                        }, 220);
+                    }
+                });
+            });
+        });
+
+        document.querySelectorAll("[data-footer-filter]").forEach((link) => {
+            link.addEventListener("click", () => {
+                const target = document.querySelector(`.filter-btn[data-filter="${link.dataset.footerFilter}"]`);
+                if (target) {
+                    target.click();
+                }
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll(".reveal").forEach((item) => observer.observe(item));
+
+        const backToTop = document.querySelector(".back-to-top");
+        window.addEventListener("scroll", () => {
+            backToTop.classList.toggle("show", window.scrollY > 500);
+        });
+        backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    </script>
+</body>
+</html>
