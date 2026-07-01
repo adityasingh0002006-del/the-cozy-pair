@@ -1,3 +1,27 @@
+{% macro product_card(product) -%}
+<article class="product-card reveal" data-category="{{ product.category }}" data-name="{{ product.name | lower }}">
+    <a class="product-image" href="{{ url_for('product_details', slug=product.slug) }}" aria-label="View {{ product.name }}">
+        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}" loading="lazy">
+        {% if product.new %}
+        <span class="product-badge">NEW</span>
+        {% endif %}
+    </a>
+    <div class="product-info">
+        <p class="product-category">{{ product.category }}</p>
+        <h3>{{ product.name }}</h3>
+        <p class="price">{{ product.price }}</p>
+        <div class="card-actions">
+            <a class="btn btn-small btn-secondary" href="{{ url_for('product_details', slug=product.slug) }}">View Details</a>
+            <button
+                class="btn btn-small btn-primary order-instagram"
+                type="button"
+                data-product-name="{{ product.name }}"
+                data-product-price="{{ product.price }}"
+            >Order on Instagram</button>
+        </div>
+    </div>
+</article>
+{%- endmacro %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,12 +77,31 @@
             </div>
         </section>
 
+        <section class="section-pad featured-section">
+            <div class="section-heading reveal">
+                <div>
+                    <p class="eyebrow">Most loved</p>
+                    <h2>✨ Best Sellers</h2>
+                </div>
+            </div>
+            <div class="product-grid featured-grid">
+                {% for product in featured_products %}
+                {{ product_card(product) }}
+                {% endfor %}
+            </div>
+        </section>
+
         <section id="products" class="section-pad products-section">
             <div class="section-heading reveal">
                 <div>
                     <p class="eyebrow">Shop by mood</p>
                     <h2>Cozy Crochet Picks</h2>
                 </div>
+            </div>
+
+            <div class="product-search reveal">
+                <label for="productSearch">Search products</label>
+                <input id="productSearch" type="search" placeholder="Search by name or category" autocomplete="off">
             </div>
 
             <div class="category-filters reveal" aria-label="Product categories">
@@ -70,22 +113,10 @@
 
             <div class="product-grid">
                 {% for product in products %}
-                <article class="product-card reveal" data-category="{{ product.category }}">
-                    <a class="product-image" href="{{ url_for('product_details', slug=product.slug) }}" aria-label="View {{ product.name }}">
-                        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}" loading="lazy">
-                    </a>
-                    <div class="product-info">
-                        <p class="product-category">{{ product.category }}</p>
-                        <h3>{{ product.name }}</h3>
-                        <p class="price">{{ product.price }}</p>
-                        <div class="card-actions">
-                            <a class="btn btn-small btn-secondary" href="{{ url_for('product_details', slug=product.slug) }}">View Details</a>
-                            <a class="btn btn-small btn-primary" href="https://instagram.com/the.cozy.pair" target="_blank" rel="noopener">Order on Instagram</a>
-                        </div>
-                    </div>
-                </article>
+                {{ product_card(product) }}
                 {% endfor %}
             </div>
+            <p class="empty-products" hidden>No cozy matches found. Try another product or category.</p>
         </section>
 
         <section id="reviews" class="section-pad reviews-section">
@@ -96,6 +127,13 @@
                 </div>
             </div>
             <div class="review-grid">
+                {% if review_images %}
+                {% for image in review_images %}
+                <article class="review-card review-image-card reveal">
+                    <img src="{{ url_for('static', filename=image) }}" alt="Customer review {{ loop.index }}" loading="lazy">
+                </article>
+                {% endfor %}
+                {% else %}
                 <article class="review-card reveal">
                     <div class="stars" aria-label="5 star rating">&starf;&starf;&starf;&starf;&starf;</div>
                     <p>"The clutcher is so cute and neatly made. It looks even prettier in person."</p>
@@ -111,6 +149,7 @@
                     <p>"The bow clip feels handmade in the best way. Soft, pretty, and comfortable."</p>
                     <h3>Riya</h3>
                 </article>
+                {% endif %}
             </div>
         </section>
 
@@ -160,8 +199,47 @@
     </footer>
 
     <button class="back-to-top" type="button" aria-label="Back to top">&uarr;</button>
+    <div class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <script>
+        const instagramUrl = "https://instagram.com/the.cozy.pair";
+        const toast = document.querySelector(".toast");
+        let toastTimer;
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("show");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+        }
+
+        async function copyOrderMessage(productName, productPrice) {
+            const message = `Hi The Cozy Pair,\n\nI would like to order:\nProduct: ${productName}\nPrice: ${productPrice}\n\nPlease share availability details.`;
+
+            try {
+                await navigator.clipboard.writeText(message);
+            } catch (error) {
+                const textarea = document.createElement("textarea");
+                textarea.value = message;
+                textarea.setAttribute("readonly", "");
+                textarea.style.position = "fixed";
+                textarea.style.opacity = "0";
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand("copy");
+                textarea.remove();
+            }
+
+            showToast("Product details copied. Paste in Instagram DM.");
+            window.open(instagramUrl, "_blank", "noopener");
+        }
+
+        document.querySelectorAll(".order-instagram").forEach((button) => {
+            button.addEventListener("click", () => {
+                copyOrderMessage(button.dataset.productName, button.dataset.productPrice);
+            });
+        });
+
         const navToggle = document.querySelector(".nav-toggle");
         const navLinks = document.querySelector(".nav-links");
         navToggle.addEventListener("click", () => {
@@ -178,28 +256,49 @@
         });
 
         const filterButtons = document.querySelectorAll(".filter-btn");
-        const productCards = document.querySelectorAll(".product-card");
+        const productCards = document.querySelectorAll(".products-section .product-card");
+        const productSearch = document.querySelector("#productSearch");
+        const emptyProducts = document.querySelector(".empty-products");
+        let activeFilter = "All";
+
+        function updateProducts() {
+            const query = productSearch.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            productCards.forEach((card) => {
+                const category = card.dataset.category;
+                const searchableText = `${card.dataset.name} ${category}`.toLowerCase();
+                const matchesCategory = activeFilter === "All" || category === activeFilter;
+                const matchesSearch = !query || searchableText.includes(query);
+                const shouldShow = matchesCategory && matchesSearch;
+
+                if (shouldShow) {
+                    visibleCount += 1;
+                    card.hidden = false;
+                    requestAnimationFrame(() => card.classList.remove("is-filtered-out"));
+                } else {
+                    card.classList.add("is-filtered-out");
+                    setTimeout(() => {
+                        if (card.classList.contains("is-filtered-out")) {
+                            card.hidden = true;
+                        }
+                    }, 220);
+                }
+            });
+
+            emptyProducts.hidden = visibleCount > 0;
+        }
+
         filterButtons.forEach((button) => {
             button.addEventListener("click", () => {
                 filterButtons.forEach((item) => item.classList.remove("active"));
                 button.classList.add("active");
-                const filter = button.dataset.filter;
-                productCards.forEach((card) => {
-                    const shouldShow = filter === "All" || card.dataset.category === filter;
-                    if (shouldShow) {
-                        card.hidden = false;
-                        requestAnimationFrame(() => card.classList.remove("is-filtered-out"));
-                    } else {
-                        card.classList.add("is-filtered-out");
-                        setTimeout(() => {
-                            if (card.classList.contains("is-filtered-out")) {
-                                card.hidden = true;
-                            }
-                        }, 220);
-                    }
-                });
+                activeFilter = button.dataset.filter;
+                updateProducts();
             });
         });
+
+        productSearch.addEventListener("input", updateProducts);
 
         document.querySelectorAll("[data-footer-filter]").forEach((link) => {
             link.addEventListener("click", () => {

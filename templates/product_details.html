@@ -53,6 +53,9 @@
 
             <article class="detail-content reveal">
                 <p class="product-category">{{ product.category }}</p>
+                {% if product.new %}
+                <span class="product-badge detail-badge">NEW</span>
+                {% endif %}
                 <h1>{{ product.name }}</h1>
                 <p class="detail-price">{{ product.price }}</p>
                 <p class="detail-description">{{ product.description }}</p>
@@ -61,7 +64,12 @@
                     <span>No COD Available</span>
                 </div>
                 <div class="detail-actions">
-                    <a class="btn btn-primary btn-large" href="https://instagram.com/the.cozy.pair" target="_blank" rel="noopener">Order on Instagram</a>
+                    <button
+                        class="btn btn-primary btn-large order-instagram"
+                        type="button"
+                        data-product-name="{{ product.name }}"
+                        data-product-price="{{ product.price }}"
+                    >Order on Instagram</button>
                 </div>
             </article>
         </section>
@@ -104,8 +112,47 @@
     </footer>
 
     <button class="back-to-top" type="button" aria-label="Back to top">&uarr;</button>
+    <div class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <script>
+        const instagramUrl = "https://instagram.com/the.cozy.pair";
+        const toast = document.querySelector(".toast");
+        let toastTimer;
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("show");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+        }
+
+        async function copyOrderMessage(productName, productPrice) {
+            const message = `Hi The Cozy Pair,\n\nI would like to order:\nProduct: ${productName}\nPrice: ${productPrice}\n\nPlease share availability details.`;
+
+            try {
+                await navigator.clipboard.writeText(message);
+            } catch (error) {
+                const textarea = document.createElement("textarea");
+                textarea.value = message;
+                textarea.setAttribute("readonly", "");
+                textarea.style.position = "fixed";
+                textarea.style.opacity = "0";
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand("copy");
+                textarea.remove();
+            }
+
+            showToast("Product details copied. Paste in Instagram DM.");
+            window.open(instagramUrl, "_blank", "noopener");
+        }
+
+        document.querySelectorAll(".order-instagram").forEach((button) => {
+            button.addEventListener("click", () => {
+                copyOrderMessage(button.dataset.productName, button.dataset.productPrice);
+            });
+        });
+
         const navToggle = document.querySelector(".nav-toggle");
         const navLinks = document.querySelector(".nav-links");
         navToggle.addEventListener("click", () => {
