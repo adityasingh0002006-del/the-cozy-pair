@@ -12,6 +12,17 @@ REVIEWS_DIR = IMAGES_DIR / "reviews"
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 
+GOOGLE_ANALYTICS_ID = "G-PK5H0DPW8E"
+GOOGLE_ANALYTICS_SNIPPET = f"""
+    <script async src="https://www.googletagmanager.com/gtag/js?id={GOOGLE_ANALYTICS_ID}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){{dataLayer.push(arguments);}}
+        gtag("js", new Date());
+        gtag("config", "{GOOGLE_ANALYTICS_ID}");
+    </script>
+"""
+
 CATEGORY_ORDER = [
     "Clutchers",
     "Hair Accessories",
@@ -58,6 +69,17 @@ def load_review_images():
         for image in sorted(REVIEWS_DIR.iterdir())
         if image.is_file() and image.suffix.lower() in allowed_extensions
     ]
+
+
+@app.after_request
+def add_google_analytics(response):
+    if response.content_type.startswith("text/html"):
+        html = response.get_data(as_text=True)
+        if GOOGLE_ANALYTICS_ID not in html and "</head>" in html:
+            html = html.replace("</head>", f"{GOOGLE_ANALYTICS_SNIPPET}</head>", 1)
+            response.set_data(html)
+
+    return response
 
 
 @app.route("/")
