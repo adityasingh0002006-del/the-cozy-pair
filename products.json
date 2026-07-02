@@ -197,5 +197,33 @@
     ],
     "new": true,
     "description": "Handmade crochet waist band designed to add a unique handcrafted touch to any outfit."
+  },
+  {
+    "id": 17,
+    "slug": "heart-clip",
+    "name": "Heart tictac Clip",
+    "category": "Hair Accessories",
+    "price": "₹60 per pair",
+    "image": "heart tictac clip.jpeg",
+    "images": [
+      "heart tictac clip.jpeg",
+      "heart tictac clip2.jpeg"
+    ],
+    "new": true,
+    "description": "Handmade crochet heart clip set, sold as a pair."
+  },
+  {
+    "id": 18,
+    "slug": "tulip-clip",
+    "name": "Tulip tictac Clip",
+    "category": "Hair Accessories",
+    "price": "₹65 per pair",
+    "image": "tulip tictac clip.jpeg",
+    "images": [
+      "tulip tictac clip.jpeg",
+      "tulip tictac clip2.jpeg"
+    ],
+    "new": true,
+    "description": "Handmade crochet buds clip set, sold as a pair."
   }
 ]
